@@ -73,6 +73,7 @@ public class Utils {
         jsonObjeto = (JSONObject) parser.parse(mensagem);
 
         String operacao = (String) jsonObjeto.get("operacao");
+         
         return operacao;
     }
 
@@ -81,7 +82,7 @@ public class Utils {
         JSONObject jsonObjeto;
         JSONParser parser = new JSONParser();
         jsonObjeto = (JSONObject) parser.parse(mensagem);
-        String entidade = (String) jsonObjeto.get("entidade");
+        String entidade = (String) jsonObjeto.get("classe");
 
         return entidade;
     }

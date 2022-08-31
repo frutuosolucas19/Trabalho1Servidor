@@ -18,7 +18,7 @@ public class PrincipalServidor {
 
     private static Socket socket;
     private static ServerSocket serverSocket;
-    private static PrintWriter pw;
+    private static PrintWriter mensagemDados;
     private static Controller controller;
 
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
@@ -41,7 +41,7 @@ public class PrincipalServidor {
 
         socket = serverSocket.accept();
         String clienteIp = socket.getInetAddress().getHostAddress();
-        System.out.println(clienteIp + "Conectou...");
+        System.out.println(clienteIp + "\nConectou...");
 
         InputStreamReader in = new InputStreamReader(socket.getInputStream());
         BufferedReader br = new BufferedReader(in);
@@ -49,13 +49,14 @@ public class PrincipalServidor {
 
         String retorno = controller.Dados(mensagem);
         enviaDados(retorno);
+        System.out.println(retorno);
     }
 
     public static void enviaDados(String msg) throws IOException {
 
-        pw = new PrintWriter(socket.getOutputStream());
-        pw.println(msg);
-        pw.flush();
+        mensagemDados = new PrintWriter(socket.getOutputStream());
+        mensagemDados.println(msg);
+        mensagemDados.flush();
     }
 
 }

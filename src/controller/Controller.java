@@ -16,20 +16,20 @@ public class Controller {
         DataSource dataSource = new DataSource();
         
         String operacao = utils.retornaOperacao(mensagem);
-        String entidade = utils.retornaEntidade(mensagem);
+        String classe = utils.retornaEntidade(mensagem);
         String cpfPessoa = utils.cpfPessoa(mensagem);
         
         switch (operacao) {
-            case "1":
-                if(entidade.equalsIgnoreCase("pessoa"))
+            case "INSERT":
+                if(classe.equalsIgnoreCase("pessoa"))
                     return dataSource.addPessoa(mensagem);
-                if(entidade.equalsIgnoreCase("funcao"))
+                if(classe.equalsIgnoreCase("funcao"))
                     return dataSource.addFuncao(mensagem);
                 break;
             case "2":
-                if(entidade.equalsIgnoreCase("pessoa"))
+                if(classe.equalsIgnoreCase("pessoa"))
                     return dataSource.listaPessoas();
-                if(entidade.equalsIgnoreCase("funcao"))
+                if(classe.equalsIgnoreCase("funcao"))
                     return dataSource.listaFuncoes();
                 break;
             default:
