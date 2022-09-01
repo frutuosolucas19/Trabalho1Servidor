@@ -10,7 +10,7 @@ import org.json.simple.parser.JSONParser;
  *
  * @author lucas
  */
-public class Utils {
+public class ConversorClasseJSON {
 
     public String PessoaParaJson(Pessoa pessoa) {
 

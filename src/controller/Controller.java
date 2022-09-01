@@ -3,7 +3,7 @@ package controller;
 
 import datasource.DataSource;
 import org.json.simple.parser.ParseException;
-import utils.Utils;
+import utils.ConversorClasseJSON;
 
 /**
  *
@@ -12,7 +12,7 @@ import utils.Utils;
 public class Controller {
     
     public String Dados(String mensagem) throws ParseException, java.text.ParseException {
-        Utils utils = new Utils();
+        ConversorClasseJSON utils = new ConversorClasseJSON();
         DataSource dataSource = new DataSource();
         
         String operacao = utils.retornaOperacao(mensagem);
