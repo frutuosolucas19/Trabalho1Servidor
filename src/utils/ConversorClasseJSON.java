@@ -22,9 +22,9 @@ public class ConversorClasseJSON {
         return jsonPessoa.toJSONString();
     }
 
-    public Pessoa JsonParaPessoa(String mensagem) throws ParseException {
-
-        JSONObject json = new JSONObject();
+    public Pessoa JsonParaPessoa(String mensagem) throws ParseException, org.json.simple.parser.ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser. parse(mensagem);
 
         Pessoa pessoa = new Pessoa();
         pessoa.setCpf((String) json.get("cpf"));

@@ -1,4 +1,4 @@
-package datasource;
+package dados;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -12,19 +12,19 @@ import utils.ConversorClasseJSON;
  *
  * @author lucas
  */
-public class DataSource {
+public class DadosServidor {
 
     private Pessoa pessoa;
     private Funcao funcao;
     private ConversorClasseJSON utils;
-    private List<Pessoa> pessoas = new ArrayList();
-    private List<Funcao> funcoes = new ArrayList();
+    private static final List<Pessoa> pessoas = new ArrayList();
+    private static final List<Funcao> funcoes = new ArrayList();
 
-    public DataSource() {
+    public DadosServidor() {
         this.utils = new ConversorClasseJSON();
     }
 
-    public String addPessoa(String mensagem) throws ParseException {
+    public String addPessoa(String mensagem) throws ParseException, org.json.simple.parser.ParseException {
 
         pessoa = utils.JsonParaPessoa(mensagem);
         pessoas.add(pessoa);

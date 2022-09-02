@@ -1,7 +1,7 @@
 
 package controller;
 
-import datasource.DataSource;
+import dados.DadosServidor;
 import org.json.simple.parser.ParseException;
 import utils.ConversorClasseJSON;
 
@@ -13,7 +13,7 @@ public class Controller {
     
     public String Dados(String mensagem) throws ParseException, java.text.ParseException {
         ConversorClasseJSON utils = new ConversorClasseJSON();
-        DataSource dataSource = new DataSource();
+        DadosServidor dataSource = new DadosServidor();
         
         String operacao = utils.retornaOperacao(mensagem);
         String classe = utils.retornaEntidade(mensagem);
