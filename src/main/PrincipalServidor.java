@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author lucas
+ * @author lucas e matheus h.
  */
 public class PrincipalServidor {
 
@@ -22,6 +22,7 @@ public class PrincipalServidor {
     private static ServerSocket serverSocket;
     private static PrintWriter mensagemDados;
     private static Controller controller;
+    private static DadosServidor popularServidor;
 
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
         Scanner entrada = new Scanner(System.in);
@@ -31,8 +32,9 @@ public class PrincipalServidor {
         serverSocket = new ServerSocket(porta);
         serverSocket.setReuseAddress(true);
         controller = new Controller();
+        popularServidor = new DadosServidor();
         System.out.println("Servidor iniciado---");
-        popularDadosServidor();
+        //popularServidor.popularDadosServidor();
         
         while (true) {
             recebeDados();
@@ -62,15 +64,4 @@ public class PrincipalServidor {
         mensagemDados.flush();
     }
 
-    public static String popularDadosServidor() throws java.text.ParseException, ParseException{
-        DadosServidor dadosServidor = new DadosServidor();
-        
-        JSONObject jsonPessoa1 = new JSONObject();
-        jsonPessoa1.put("cpf", "111");
-        jsonPessoa1.put("nome", "João");
-        jsonPessoa1.put("endereco", "Rua Amazonas");
-        
-        String pessoa1 = jsonPessoa1.toJSONString();
-        return dadosServidor.addPessoa(pessoa1);
-    }
 }

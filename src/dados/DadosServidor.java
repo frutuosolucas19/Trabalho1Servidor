@@ -39,23 +39,23 @@ public class DadosServidor {
     }
 
     public String listaPessoas() {
-        
-        if(pessoas.isEmpty() != true){
-        JSONObject jsonPessoas = new JSONObject();
-        int i = 0;
 
-        for (Pessoa pessoas : pessoas) {
-            JSONObject jsonPessoa = new JSONObject();
-            jsonPessoa.put("cpf", pessoas.getCpf());
-            jsonPessoa.put("nome", pessoas.getNome());
-            jsonPessoa.put("endereco", pessoas.getEndereco());
+        if (pessoas.isEmpty() != true) {
+            JSONObject jsonPessoas = new JSONObject();
+            int i = 0;
 
-            jsonPessoas.put(i, jsonPessoa);
-            i++;
+            for (Pessoa pessoas : pessoas) {
+                JSONObject jsonPessoa = new JSONObject();
+                jsonPessoa.put("cpf", pessoas.getCpf());
+                jsonPessoa.put("nome", pessoas.getNome());
+                jsonPessoa.put("endereco", pessoas.getEndereco());
+
+                jsonPessoas.put(i, jsonPessoa);
+                i++;
+            }
+            return jsonPessoas.toJSONString();
         }
-        return jsonPessoas.toJSONString();
-    }
-        
+
         return "0";
     }
 
@@ -74,33 +74,74 @@ public class DadosServidor {
         }
         return jsonFuncoes.toJSONString();
     }
-    
-      public String buscaPessoa(String cpf){
-        if(pessoas.isEmpty() != true){
-        for(Pessoa p : pessoas){
-            if(p.getCpf().equalsIgnoreCase(cpf)){
-                return utils.PessoaParaJson(p);
+
+    public String buscaPessoa(String cpf) {
+        if (pessoas.isEmpty() != true) {
+            for (Pessoa p : pessoas) {
+                if (p.getCpf().equalsIgnoreCase(cpf)) {
+                    return utils.PessoaParaJson(p);
+                }
             }
+
+            return "Pessoa não encontrada";
         }
-        
-        return "Pessoa não encontrada";
+        return "Sem pessoas cadastradas";
     }
-       return "Sem pessoas cadastradas";
-      }
-      
-        public String deletarPessoa(String cpf) {
-        boolean sucesso   = false;
-        
-        for(int i = 0; i < pessoas.size(); i++){
-            if(pessoas.get(i).getCpf().equalsIgnoreCase(cpf)){
-                pessoas.remove(i);
-                sucesso = true;
-               // break;
+
+    public String deletarPessoa(String cpf) {
+        boolean sucesso = false;
+        if (pessoas.isEmpty() != true) {
+            for (int i = 0; i < pessoas.size(); i++) {
+                if (pessoas.get(i).getCpf().equalsIgnoreCase(cpf)) {
+                    pessoas.remove(i);
+                    sucesso = true;
+                    // break;
+                }
+                if (sucesso == true) {
+                    return "Pessoa removida com sucesso.";
+                }
             }
-            if(sucesso == true){
-            return "Pessoa removida com sucesso.";
+            return "Pessoa não encontrada";
         }
+        return "Sem pessoas cadastradas";
+    }
+
+    public String atualizarPessoa(String msg) throws ParseException, org.json.simple.parser.ParseException {
+        pessoa = new Pessoa();
+        pessoa = utils.JsonParaPessoa(msg);
+        String cpfPessoa = pessoa.getCpf();
+
+        boolean sucesso = false;
+
+        if (pessoas.isEmpty() != true) {
+            for (int i = 0; i < pessoas.size(); i++) {
+                if (pessoas.get(i).getCpf().equalsIgnoreCase(cpfPessoa)) {
+                    pessoas.set(i, pessoa);
+                    sucesso = true;
+                    // break;
+                }
+            }
+
+            if (sucesso) {
+                return "Pessoa atualizada com sucesso";
+            }
+            return "Pessoa não encontrada";
         }
-        return "O CPF: " + cpf + " não foi encontrado.";
-        }
+        return "Sem pessoas cadastradas";
+    }
+
+    public void popularDadosServidor() {
+
+        Pessoa p1 = new Pessoa();
+        p1.setCpf("111");
+        p1.setNome("João");
+        p1.setEndereco("Rua Amazonas");
+        pessoas.add(p1);
+
+        Pessoa p2 = new Pessoa();
+        p2.setCpf("222");
+        p2.setNome("Marcos");
+        p2.setEndereco("Rua Ibirama");
+        pessoas.add(p2);
+    }
 }
