@@ -7,33 +7,41 @@ import utils.ConversorClasseJSON;
 
 /**
  *
- * @author lucas
+ * @author lucas e matheus h.
  */
 public class Controller {
     
     public String Dados(String mensagem) throws ParseException, java.text.ParseException {
         ConversorClasseJSON utils = new ConversorClasseJSON();
-        DadosServidor dataSource = new DadosServidor();
+        DadosServidor dadosServidor = new DadosServidor();
         
         String operacao = utils.retornaOperacao(mensagem);
         String classe = utils.retornaEntidade(mensagem);
-        String cpfPessoa = utils.cpfPessoa(mensagem);
+        String cpf = utils.cpfDaPessoa(mensagem);
         
         switch (operacao) {
             case "INSERT":
                 if(classe.equalsIgnoreCase("pessoa"))
-                    return dataSource.addPessoa(mensagem);
+                    return dadosServidor.addPessoa(mensagem);
                 if(classe.equalsIgnoreCase("funcao"))
-                    return dataSource.addFuncao(mensagem);
+                    return dadosServidor.addFuncao(mensagem);
                 break;
-            case "2":
+            case "LIST":
                 if(classe.equalsIgnoreCase("pessoa"))
-                    return dataSource.listaPessoas();
+                    return dadosServidor.listaPessoas();
                 if(classe.equalsIgnoreCase("funcao"))
-                    return dataSource.listaFuncoes();
+                    return dadosServidor.listaFuncoes();
                 break;
+            case "GET":
+                if (classe.equalsIgnoreCase("pessoa")) 
+                    return dadosServidor.buscaPessoa(cpf);
+                break;
+            case "DELETE":
+                if (classe.equalsIgnoreCase("pessoa")) {
+                    return dadosServidor.deletarPessoa(cpf);
+                }
             default:
-                
+                System.out.println("Nenhuma opção foi reconhecida pelo servidor.");
         }
         return "Saindo...";
     }

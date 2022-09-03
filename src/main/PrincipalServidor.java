@@ -1,6 +1,7 @@
 package main;
 
 import controller.Controller;
+import dados.DadosServidor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -29,8 +31,9 @@ public class PrincipalServidor {
         serverSocket = new ServerSocket(porta);
         serverSocket.setReuseAddress(true);
         controller = new Controller();
-        System.out.println("Iniciou...");
-
+        System.out.println("Servidor iniciado---");
+        popularDadosServidor();
+        
         while (true) {
             recebeDados();
         }
@@ -41,7 +44,7 @@ public class PrincipalServidor {
 
         socket = serverSocket.accept();
         String clienteIp = socket.getInetAddress().getHostAddress();
-        System.out.println(clienteIp + "\nConectou...");
+        System.out.println(clienteIp + " Conectou neste momento---");
 
         InputStreamReader in = new InputStreamReader(socket.getInputStream());
         BufferedReader br = new BufferedReader(in);
@@ -59,4 +62,15 @@ public class PrincipalServidor {
         mensagemDados.flush();
     }
 
+    public static String popularDadosServidor() throws java.text.ParseException, ParseException{
+        DadosServidor dadosServidor = new DadosServidor();
+        
+        JSONObject jsonPessoa1 = new JSONObject();
+        jsonPessoa1.put("cpf", "111");
+        jsonPessoa1.put("nome", "João");
+        jsonPessoa1.put("endereco", "Rua Amazonas");
+        
+        String pessoa1 = jsonPessoa1.toJSONString();
+        return dadosServidor.addPessoa(pessoa1);
+    }
 }

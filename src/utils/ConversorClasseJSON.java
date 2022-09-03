@@ -56,7 +56,7 @@ public class ConversorClasseJSON {
         return funcao;
     }
 
-    public String cpfPessoa(String mensagem) throws org.json.simple.parser.ParseException {
+    public String cpfDaPessoa(String mensagem) throws org.json.simple.parser.ParseException {
 
         JSONObject jsonObjeto;
         JSONParser parser = new JSONParser();

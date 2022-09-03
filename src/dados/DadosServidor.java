@@ -10,7 +10,7 @@ import utils.ConversorClasseJSON;
 
 /**
  *
- * @author lucas
+ * @author lucas e matheus h.
  */
 public class DadosServidor {
 
@@ -39,6 +39,8 @@ public class DadosServidor {
     }
 
     public String listaPessoas() {
+        
+        if(pessoas.isEmpty() != true){
         JSONObject jsonPessoas = new JSONObject();
         int i = 0;
 
@@ -52,6 +54,9 @@ public class DadosServidor {
             i++;
         }
         return jsonPessoas.toJSONString();
+    }
+        
+        return "0";
     }
 
     public String listaFuncoes() {
@@ -69,4 +74,33 @@ public class DadosServidor {
         }
         return jsonFuncoes.toJSONString();
     }
+    
+      public String buscaPessoa(String cpf){
+        if(pessoas.isEmpty() != true){
+        for(Pessoa p : pessoas){
+            if(p.getCpf().equalsIgnoreCase(cpf)){
+                return utils.PessoaParaJson(p);
+            }
+        }
+        
+        return "Pessoa não encontrada";
+    }
+       return "Sem pessoas cadastradas";
+      }
+      
+        public String deletarPessoa(String cpf) {
+        boolean sucesso   = false;
+        
+        for(int i = 0; i < pessoas.size(); i++){
+            if(pessoas.get(i).getCpf().equalsIgnoreCase(cpf)){
+                pessoas.remove(i);
+                sucesso = true;
+               // break;
+            }
+            if(sucesso == true){
+            return "Pessoa removida com sucesso.";
+        }
+        }
+        return "O CPF: " + cpf + " não foi encontrado.";
+        }
 }
