@@ -6,7 +6,7 @@ import java.util.List;
 import model.Funcao;
 import model.Pessoa;
 import org.json.simple.JSONObject;
-import utils.ConversorClasseJSON;
+import utils.Conversor;
 
 /**
  *
@@ -16,12 +16,12 @@ public class DadosServidor {
 
     private Pessoa pessoa;
     private Funcao funcao;
-    private ConversorClasseJSON utils;
+    private Conversor utils;
     private static final List<Pessoa> pessoas = new ArrayList();
     private static final List<Funcao> funcoes = new ArrayList();
 
     public DadosServidor() {
-        this.utils = new ConversorClasseJSON();
+        this.utils = new Conversor();
     }
 
     public String addPessoa(String mensagem) throws ParseException, org.json.simple.parser.ParseException {

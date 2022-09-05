@@ -2,21 +2,22 @@ package controller;
 
 import dados.DadosServidor;
 import org.json.simple.parser.ParseException;
-import utils.ConversorClasseJSON;
+import utils.Conversor;
 
 /**
  *
  * @author Lucas de Liz Frutuoso e Matheus Henrique Maas
  */
-public class Controller {
+public class ControllerServer {
 
     public String Dados(String mensagem) throws ParseException, java.text.ParseException {
-        ConversorClasseJSON utils = new ConversorClasseJSON();
+        Conversor conversor = new Conversor();
         DadosServidor dadosServidor = new DadosServidor();
 
-        String operacao = utils.retornaOperacao(mensagem);
-        String classe = utils.retornaEntidade(mensagem);
-        String cpf = utils.cpfDaPessoa(mensagem);
+        String operacao = conversor.retornaOperacao(mensagem);
+        String classe = conversor.retornaClasse(mensagem);
+        String cpf = conversor.cpfDaPessoa(mensagem);
+        String nomeFuncao = conversor.retornaNomeFuncao(mensagem);
 
         switch (operacao) {
             case "INSERT":
@@ -39,13 +40,22 @@ public class Controller {
                 if (classe.equalsIgnoreCase("pessoa")) {
                     return dadosServidor.buscaPessoa(cpf);
                 }
+                if (classe.equalsIgnoreCase("funcao")) {
+                    return dadosServidor.buscaPessoa(nomeFuncao);
+                }
                 break;
             case "DELETE":
                 if (classe.equalsIgnoreCase("pessoa")) {
                     return dadosServidor.deletarPessoa(cpf);
                 }
+                if (classe.equalsIgnoreCase("funcao")) {
+                    return dadosServidor.deletarPessoa(nomeFuncao);
+                }
             case "UPDATE":
                 if (classe.equalsIgnoreCase("pessoa")) {
+                    return dadosServidor.atualizarPessoa(mensagem);
+                }
+                if (classe.equalsIgnoreCase("funcao")) {
                     return dadosServidor.atualizarPessoa(mensagem);
                 }
             default:

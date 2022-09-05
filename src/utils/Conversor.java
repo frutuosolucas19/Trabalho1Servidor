@@ -10,7 +10,7 @@ import org.json.simple.parser.JSONParser;
  *
  * @author Lucas de Liz Frutuoso e Matheus Henrique Maas
  */
-public class ConversorClasseJSON {
+public class Conversor {
 
     public String PessoaParaJson(Pessoa pessoa) {
 
@@ -77,14 +77,23 @@ public class ConversorClasseJSON {
         return operacao;
     }
 
-    public String retornaEntidade(String mensagem) throws org.json.simple.parser.ParseException {
+    public String retornaClasse(String mensagem) throws org.json.simple.parser.ParseException {
 
         JSONObject jsonObjeto;
         JSONParser parser = new JSONParser();
         jsonObjeto = (JSONObject) parser.parse(mensagem);
-        String entidade = (String) jsonObjeto.get("classe");
+        String classe = (String) jsonObjeto.get("classe");
 
-        return entidade;
+        return classe;
+    }
+
+    public String retornaNomeFuncao(String mensagem) throws org.json.simple.parser.ParseException {
+        JSONObject jsonObjeto;
+        JSONParser parser = new JSONParser();
+        jsonObjeto = (JSONObject) parser.parse(mensagem);
+        String nomeFuncao = (String) jsonObjeto.get("nomeFuncao");
+
+        return nomeFuncao;
     }
 
 }

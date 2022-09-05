@@ -1,25 +1,29 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Lucas de Liz Frutuoso e Matheus Henrique Maas
  */
 public class Funcao {
 
-    private String nome;
+    private String nomeFuncao;
     private String setor;
     private double salario;
+    private List<Pessoa> pessoas = new ArrayList<>();
 
     public Funcao() {
 
     }
 
     public String getNome() {
-        return nome;
+        return nomeFuncao;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nomeFuncao = nome;
     }
 
     public String getSetor() {
@@ -38,9 +42,18 @@ public class Funcao {
         this.salario = salario;
     }
 
+    public List<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(List<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+
     @Override
     public String toString() {
-        return "Funcao{" + "nome=" + nome + ", setor=" + setor + ", salario=" + salario + '}';
+        return "Funcao{" + "nome=" + nomeFuncao + ", setor=" + setor + ", salario=" + salario + ", pessoas=" + pessoas + '}';
     }
+
 
 }

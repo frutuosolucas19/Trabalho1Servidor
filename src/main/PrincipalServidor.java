@@ -1,6 +1,6 @@
 package main;
 
-import controller.Controller;
+import controller.ControllerServer;
 import dados.DadosServidor;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,25 +20,26 @@ public class PrincipalServidor {
     private static Socket socket;
     private static ServerSocket serverSocket;
     private static PrintWriter mensagemDados;
-    private static Controller controller;
+    private static ControllerServer controller;
     private static DadosServidor popularServidor;
 
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
+
         Scanner entrada = new Scanner(System.in);
         System.out.println("Qual a porta?");
         int porta = entrada.nextInt();
 
         serverSocket = new ServerSocket(porta);
         serverSocket.setReuseAddress(true);
-        controller = new Controller();
+        controller = new ControllerServer();
         popularServidor = new DadosServidor();
         System.out.println("Servidor iniciado---");
-        //popularServidor.popularDadosServidor();
-
-        while (true) {
-            recebeDados();
-        }
-
+        popularServidor.popularDadosServidor();
+        
+            while (true) {
+                recebeDados();
+            }
+        
     }
 
     public static void recebeDados() throws IOException, ParseException, java.text.ParseException {
@@ -61,6 +62,7 @@ public class PrincipalServidor {
         mensagemDados = new PrintWriter(socket.getOutputStream());
         mensagemDados.println(msg);
         mensagemDados.flush();
+
     }
 
 }
