@@ -6,7 +6,7 @@ import utils.ConversorClasseJSON;
 
 /**
  *
- * @author lucas e matheus h.
+ * @author Lucas de Liz Frutuoso e Matheus Henrique Maas
  */
 public class Controller {
 

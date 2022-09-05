@@ -9,12 +9,11 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author lucas e matheus h.
+ * @author Lucas de Liz Frutuoso e Matheus Henrique Maas
  */
 public class PrincipalServidor {
 
@@ -35,7 +34,7 @@ public class PrincipalServidor {
         popularServidor = new DadosServidor();
         System.out.println("Servidor iniciado---");
         //popularServidor.popularDadosServidor();
-        
+
         while (true) {
             recebeDados();
         }

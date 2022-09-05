@@ -8,7 +8,7 @@ import org.json.simple.parser.JSONParser;
 
 /**
  *
- * @author lucas
+ * @author Lucas de Liz Frutuoso e Matheus Henrique Maas
  */
 public class ConversorClasseJSON {
 
@@ -24,7 +24,7 @@ public class ConversorClasseJSON {
 
     public Pessoa JsonParaPessoa(String mensagem) throws ParseException, org.json.simple.parser.ParseException {
         JSONParser parser = new JSONParser();
-        JSONObject json = (JSONObject) parser. parse(mensagem);
+        JSONObject json = (JSONObject) parser.parse(mensagem);
 
         Pessoa pessoa = new Pessoa();
         pessoa.setCpf((String) json.get("cpf"));
@@ -73,7 +73,7 @@ public class ConversorClasseJSON {
         jsonObjeto = (JSONObject) parser.parse(mensagem);
 
         String operacao = (String) jsonObjeto.get("operacao");
-         
+
         return operacao;
     }
 
