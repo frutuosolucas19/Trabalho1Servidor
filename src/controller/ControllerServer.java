@@ -58,6 +58,10 @@ public class ControllerServer {
                 if (classe.equalsIgnoreCase("funcao")) {
                     return dadosServidor.atualizarFuncao(mensagem);
                 }
+            case "ASSOCIAR":
+                if (classe.equalsIgnoreCase("funcao")) {
+                    return dadosServidor.associaPessoaEmpresa(cpf, nomeFuncao);
+                }
             default:
                 System.out.println("Nenhuma opção foi reconhecida pelo servidor.");
         }

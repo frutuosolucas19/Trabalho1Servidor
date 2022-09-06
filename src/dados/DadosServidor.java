@@ -162,7 +162,7 @@ public class DadosServidor {
         }
         return "Sem funcões cadastradas";
     }
-    
+
     public String atualizarFuncao(String msg) throws ParseException, org.json.simple.parser.ParseException {
         funcao = new Funcao();
         funcao = conversor.JsonParaFuncao(msg);
@@ -200,5 +200,59 @@ public class DadosServidor {
         p2.setNome("Marcos");
         p2.setEndereco("Rua Ibirama");
         pessoas.add(p2);
+
+        Funcao f1 = new Funcao();
+        f1.setNome("Secretária");
+        f1.setSetor("RH");
+        f1.setSalario(1500);
+        funcoes.add(f1);
+
+        Funcao f2 = new Funcao();
+        f2.setNome("Secretária");
+        f2.setSetor("Administrativo");
+        f2.setSalario(1500);
+        funcoes.add(f1);
+    }
+
+    private Funcao getFuncaoNome(String nomeFuncao) {
+
+        for (Funcao f : funcoes) {
+            if (f.getNome().equalsIgnoreCase(nomeFuncao)) {
+                return f;
+            }
+        }
+
+        return new Funcao();
+    }
+
+    private Pessoa getPessoaCpf(String cpfPessoa) {
+
+        for (Pessoa p : pessoas) {
+            if (p.getCpf().equalsIgnoreCase(cpfPessoa)) {
+                return p;
+            }
+        }
+
+        return new Pessoa();
+    }
+
+    public String associaPessoaEmpresa(String cpfPessoa, String nomeFuncao) {
+
+        String resposta = "Não foi possível associar esta pessoa a uma Função";
+
+        if ((buscaPessoa(cpfPessoa)).equalsIgnoreCase("Pessoa com o CPF: " + cpfPessoa + " não encontrada.")) {
+
+            Funcao funcao = getFuncaoNome(nomeFuncao);
+            Pessoa pessoa = getPessoaCpf(cpfPessoa);
+
+            if (funcao.getNome() != null && pessoa.getCpf() != null) {
+                funcao.getPessoas().add(pessoa);
+                resposta = "Cpf " + cpfPessoa + " associado a Função de " + funcao.getNome();
+            }
+        } else {
+            resposta = "Esta pessoa já esta vinculada a uma empresa";
+        }
+
+        return resposta;
     }
 }
