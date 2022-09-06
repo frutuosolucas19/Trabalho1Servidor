@@ -16,17 +16,16 @@ public class DadosServidor {
 
     private Pessoa pessoa;
     private Funcao funcao;
-    private Conversor utils;
+    private Conversor conversor;
     private static final List<Pessoa> pessoas = new ArrayList();
     private static final List<Funcao> funcoes = new ArrayList();
 
     public DadosServidor() {
-        this.utils = new Conversor();
+        this.conversor = new Conversor();
     }
 
     public String addPessoa(String mensagem) throws ParseException, org.json.simple.parser.ParseException {
-
-        pessoa = utils.JsonParaPessoa(mensagem);
+        this.pessoa = conversor.JsonParaPessoa(mensagem);
         pessoas.add(pessoa);
 
         return "Pessoa inserida com sucesso";
@@ -34,8 +33,11 @@ public class DadosServidor {
 
     public String addFuncao(String mensagem) throws org.json.simple.parser.ParseException {
 
-        funcao = utils.JsonParaFuncao(mensagem);
+        this.funcao = conversor.JsonParaFuncao(mensagem);
+        funcoes.add(funcao);
+
         return "Função inserida com sucesso";
+
     }
 
     public String listaPessoas() {
@@ -79,7 +81,7 @@ public class DadosServidor {
         if (pessoas.isEmpty() != true) {
             for (Pessoa p : pessoas) {
                 if (p.getCpf().equalsIgnoreCase(cpf)) {
-                    return utils.PessoaParaJson(p);
+                    return conversor.PessoaParaJson(p);
                 }
             }
 
@@ -108,7 +110,7 @@ public class DadosServidor {
 
     public String atualizarPessoa(String msg) throws ParseException, org.json.simple.parser.ParseException {
         pessoa = new Pessoa();
-        pessoa = utils.JsonParaPessoa(msg);
+        pessoa = conversor.JsonParaPessoa(msg);
         String cpfPessoa = pessoa.getCpf();
 
         boolean sucesso = false;
@@ -128,6 +130,61 @@ public class DadosServidor {
             return "Pessoa não encontrada";
         }
         return "Sem pessoas cadastradas";
+    }
+
+    public String buscaFuncao(String nomeFuncao) {
+        if (funcoes.isEmpty() != true) {
+            for (Funcao f : funcoes) {
+                if (f.getNome().equalsIgnoreCase(nomeFuncao)) {
+                    return conversor.FuncaoParaJson(f);
+                }
+            }
+
+            return "Funcão não encontrada";
+        }
+        return "Sem funções cadastradas";
+    }
+
+    public String deletarFuncao(String nomeFuncao) {
+        boolean sucesso = false;
+        if (funcoes.isEmpty() != true) {
+            for (int i = 0; i < funcoes.size(); i++) {
+                if (funcoes.get(i).getNome().equalsIgnoreCase(nomeFuncao)) {
+                    funcoes.remove(i);
+                    sucesso = true;
+                    // break;
+                }
+                if (sucesso == true) {
+                    return "Funcão removida com sucesso.";
+                }
+            }
+            return "Funcão não encontrada";
+        }
+        return "Sem funcões cadastradas";
+    }
+    
+    public String atualizarFuncao(String msg) throws ParseException, org.json.simple.parser.ParseException {
+        funcao = new Funcao();
+        funcao = conversor.JsonParaFuncao(msg);
+        String nomeFuncao = funcao.getNome();
+
+        boolean sucesso = false;
+
+        if (funcoes.isEmpty() != true) {
+            for (int i = 0; i < funcoes.size(); i++) {
+                if (funcoes.get(i).getNome().equalsIgnoreCase(nomeFuncao)) {
+                    funcoes.set(i, funcao);
+                    sucesso = true;
+                    // break;
+                }
+            }
+
+            if (sucesso) {
+                return "Funcao atualizada com sucesso";
+            }
+            return "Funcao não encontrada";
+        }
+        return "Sem funcões cadastradas";
     }
 
     public void popularDadosServidor() {

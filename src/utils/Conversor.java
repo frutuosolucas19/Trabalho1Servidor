@@ -23,6 +23,7 @@ public class Conversor {
     }
 
     public Pessoa JsonParaPessoa(String mensagem) throws ParseException, org.json.simple.parser.ParseException {
+        
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(mensagem);
 
@@ -46,7 +47,8 @@ public class Conversor {
 
     public Funcao JsonParaFuncao(String mensagem) throws org.json.simple.parser.ParseException {
 
-        JSONObject json = new JSONObject();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(mensagem);
 
         Funcao funcao = new Funcao();
         funcao.setNome((String) json.get("nome"));
@@ -91,7 +93,7 @@ public class Conversor {
         JSONObject jsonObjeto;
         JSONParser parser = new JSONParser();
         jsonObjeto = (JSONObject) parser.parse(mensagem);
-        String nomeFuncao = (String) jsonObjeto.get("nomeFuncao");
+        String nomeFuncao = (String) jsonObjeto.get("nome");
 
         return nomeFuncao;
     }

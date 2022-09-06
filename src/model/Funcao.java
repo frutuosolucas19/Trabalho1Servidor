@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Funcao {
 
-    private String nomeFuncao;
+    private String nome;
     private String setor;
     private double salario;
     private List<Pessoa> pessoas = new ArrayList<>();
@@ -19,11 +19,11 @@ public class Funcao {
     }
 
     public String getNome() {
-        return nomeFuncao;
+        return nome;
     }
 
     public void setNome(String nome) {
-        this.nomeFuncao = nome;
+        this.nome = nome;
     }
 
     public String getSetor() {
@@ -52,8 +52,6 @@ public class Funcao {
 
     @Override
     public String toString() {
-        return "Funcao{" + "nome=" + nomeFuncao + ", setor=" + setor + ", salario=" + salario + ", pessoas=" + pessoas + '}';
+        return "Funcao{" + "nome=" + nome + ", setor=" + setor + ", salario=" + salario + ", pessoas=" + pessoas + '}';
     }
-
-
 }
