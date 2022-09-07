@@ -58,7 +58,7 @@ public class ControllerServer {
                 if (classe.equalsIgnoreCase("funcao")) {
                     return dadosServidor.atualizarFuncao(mensagem);
                 }
-            case "ASSOCIAR":
+            case "ASSOCIA":
                 if (classe.equalsIgnoreCase("funcao")) {
                     return dadosServidor.associaPessoaEmpresa(cpf, nomeFuncao);
                 }
