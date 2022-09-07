@@ -51,6 +51,7 @@ public class ControllerServer {
                 if (classe.equalsIgnoreCase("funcao")) {
                     return dadosServidor.deletarFuncao(nomeFuncao);
                 }
+                break;
             case "UPDATE":
                 if (classe.equalsIgnoreCase("pessoa")) {
                     return dadosServidor.atualizarPessoa(mensagem);
@@ -58,10 +59,11 @@ public class ControllerServer {
                 if (classe.equalsIgnoreCase("funcao")) {
                     return dadosServidor.atualizarFuncao(mensagem);
                 }
+                break;
             case "ASSOCIA":
-                if (classe.equalsIgnoreCase("funcao")) {
-                    return dadosServidor.associaPessoaEmpresa(cpf, nomeFuncao);
-                }
+                    return dadosServidor.associaPessoaFuncao(cpf, nomeFuncao);
+            case "LIST_GERAL":
+                    return dadosServidor.listGeralFuncaoPessoa();
             default:
                 System.out.println("Nenhuma opção foi reconhecida pelo servidor.");
         }

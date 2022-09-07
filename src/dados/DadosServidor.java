@@ -188,7 +188,67 @@ public class DadosServidor {
         return "Sem funcões cadastradas";
     }
 
-    public void popularDadosServidor() {
+    private Funcao getFuncaoNome(String nomeFuncao) {
+
+        for (Funcao f : funcoes) {
+            if (f.getNome().equalsIgnoreCase(nomeFuncao)) {
+                return f;
+            }
+        }
+
+        return new Funcao();
+    }
+
+    private Pessoa getPessoaCpf(String cpfPessoa) {
+
+        for (Pessoa p : pessoas) {
+            if (p.getCpf().equalsIgnoreCase(cpfPessoa)) {
+                return p;
+            }
+        }
+
+        return new Pessoa();
+    }
+
+    public String associaPessoaFuncao(String cpfPessoa, String nomeFuncao) {
+
+        String resposta = null;
+
+        if ((buscaPessoa(cpfPessoa)).equalsIgnoreCase("Sem pessoas cadastradas")) {
+        resposta = "Não existe pessoas cadastradas.";
+            
+        }else {
+            Funcao funcao = getFuncaoNome(nomeFuncao);
+            Pessoa pessoa = getPessoaCpf(cpfPessoa);
+
+            if (funcao.getNome() != null && pessoa.getCpf() != null) {
+                funcao.getPessoas().add(pessoa);
+                resposta = "Cpf " + cpfPessoa + " associado a Função de " + funcao.getNome();
+            }
+           
+        }
+
+        return resposta;
+    }
+    
+    public String listGeralFuncaoPessoa(){
+        JSONObject jsonFuncoes = new JSONObject();
+        int i = 0;
+
+        for (Funcao funcao : funcoes) {
+            JSONObject jsonFuncao = new JSONObject();
+            jsonFuncao.put("nome", funcao.getNome());
+            jsonFuncao.put("setor", funcao.getSetor());
+            jsonFuncao.put("salario", funcao.getSalario());
+            jsonFuncao.put("listaPessoas", funcao.getPessoas());
+
+            jsonFuncoes.put(i, jsonFuncao);
+            i++;
+        }
+        return jsonFuncoes.toJSONString();
+    }
+    
+       public void popularDadosServidor() {
 
         Pessoa p1 = new Pessoa();
         p1.setCpf("111");
@@ -215,45 +275,4 @@ public class DadosServidor {
         funcoes.add(f1);
     }
 
-    private Funcao getFuncaoNome(String nomeFuncao) {
-
-        for (Funcao f : funcoes) {
-            if (f.getNome().equalsIgnoreCase(nomeFuncao)) {
-                return f;
-            }
-        }
-
-        return new Funcao();
-    }
-
-    private Pessoa getPessoaCpf(String cpfPessoa) {
-
-        for (Pessoa p : pessoas) {
-            if (p.getCpf().equalsIgnoreCase(cpfPessoa)) {
-                return p;
-            }
-        }
-
-        return new Pessoa();
-    }
-
-    public String associaPessoaEmpresa(String cpfPessoa, String nomeFuncao) {
-
-        String resposta = "Não foi possível associar esta pessoa a uma Função";
-
-        if ((buscaPessoa(cpfPessoa)).equalsIgnoreCase("Pessoa com o CPF: " + cpfPessoa + " não encontrada.")) {
-
-            Funcao funcao = getFuncaoNome(nomeFuncao);
-            Pessoa pessoa = getPessoaCpf(cpfPessoa);
-
-            if (funcao.getNome() != null && pessoa.getCpf() != null) {
-                funcao.getPessoas().add(pessoa);
-                resposta = "Cpf " + cpfPessoa + " associado a Função de " + funcao.getNome();
-            }
-        } else {
-            resposta = "Esta pessoa já esta vinculada a uma empresa";
-        }
-
-        return resposta;
-    }
 }
