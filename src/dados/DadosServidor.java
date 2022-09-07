@@ -6,6 +6,7 @@ import java.util.List;
 import model.Funcao;
 import model.Pessoa;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import utils.Conversor;
 
 /**
@@ -65,11 +66,11 @@ public class DadosServidor {
         JSONObject jsonFuncoes = new JSONObject();
         int i = 0;
 
-        for (Funcao funcoes : funcoes) {
+        for (Funcao funcao : funcoes) {
             JSONObject jsonFuncao = new JSONObject();
-            jsonFuncao.put("nome", funcoes.getNome());
-            jsonFuncao.put("setor", funcoes.getSetor());
-            jsonFuncao.put("salario", funcoes.getSalario());
+            jsonFuncao.put("nome", funcao.getNome());
+            jsonFuncao.put("setor", funcao.getSetor());
+            jsonFuncao.put("salario", funcao.getSalario());
 
             jsonFuncoes.put(i, jsonFuncao);
             i++;
