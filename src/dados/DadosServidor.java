@@ -215,23 +215,28 @@ public class DadosServidor {
 
     public String associaPessoaFuncao(String cpfPessoa, String nomeFuncao) {
 
-        String resposta = null;
+        String resposta1 = null;
+        String resposta2 = "Pessoa ou Função não encontradas";
 
-        if ((buscaPessoa(cpfPessoa)).equalsIgnoreCase("Sem pessoas cadastradas")) {
-            resposta = "Não existe pessoas cadastradas.";
-
-        } else {
+        if ((buscaPessoa(cpfPessoa)).equalsIgnoreCase("Pessoa não encontrada")) {
+            resposta1 = resposta2;
+        } 
+        
+        if ((buscaFuncao(nomeFuncao)).equalsIgnoreCase("Função não encontrada")) {
+            resposta1 = resposta2;
+        } 
+            
+        if(resposta1==null){
             Funcao funcao = getFuncaoNome(nomeFuncao);
             Pessoa pessoa = getPessoaCpf(cpfPessoa);
 
             if (funcao.getNome() != null && pessoa.getCpf() != null) {
                 funcao.getPessoas().add(pessoa);
-                resposta = "Cpf " + cpfPessoa + " associado a Função de " + funcao.getNome();
+                resposta1 = "Cpf " + cpfPessoa + " associado a Função de " + funcao.getNome();
             }
-
         }
 
-        return resposta;
+        return resposta1;
     }
 
     public String listGeralFuncaoPessoa() {
