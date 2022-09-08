@@ -66,16 +66,19 @@ public class DadosServidor {
         JSONObject jsonFuncoes = new JSONObject();
         int i = 0;
 
-        for (Funcao funcao : funcoes) {
-            JSONObject jsonFuncao = new JSONObject();
-            jsonFuncao.put("nome", funcao.getNome());
-            jsonFuncao.put("setor", funcao.getSetor());
-            jsonFuncao.put("salario", funcao.getSalario());
+        if (funcoes.isEmpty() != true) {
+            for (Funcao funcao : funcoes) {
+                JSONObject jsonFuncao = new JSONObject();
+                jsonFuncao.put("nome", funcao.getNome());
+                jsonFuncao.put("setor", funcao.getSetor());
+                jsonFuncao.put("salario", funcao.getSalario());
 
-            jsonFuncoes.put(i, jsonFuncao);
-            i++;
+                jsonFuncoes.put(i, jsonFuncao);
+                i++;
+            }
+            return jsonFuncoes.toJSONString();
         }
-        return jsonFuncoes.toJSONString();
+        return "0";
     }
 
     public String buscaPessoa(String cpf) {
@@ -141,7 +144,7 @@ public class DadosServidor {
                 }
             }
 
-            return "Funcão não encontrada";
+            return "Função não encontrada";
         }
         return "Sem funções cadastradas";
     }
@@ -156,12 +159,12 @@ public class DadosServidor {
                     // break;
                 }
                 if (sucesso == true) {
-                    return "Funcão removida com sucesso.";
+                    return "Função removida com sucesso.";
                 }
             }
-            return "Funcão não encontrada";
+            return "Função não encontrada";
         }
-        return "Sem funcões cadastradas";
+        return "Sem funções cadastradas";
     }
 
     public String atualizarFuncao(String msg) throws ParseException, org.json.simple.parser.ParseException {
@@ -215,9 +218,9 @@ public class DadosServidor {
         String resposta = null;
 
         if ((buscaPessoa(cpfPessoa)).equalsIgnoreCase("Sem pessoas cadastradas")) {
-        resposta = "Não existe pessoas cadastradas.";
-            
-        }else {
+            resposta = "Não existe pessoas cadastradas.";
+
+        } else {
             Funcao funcao = getFuncaoNome(nomeFuncao);
             Pessoa pessoa = getPessoaCpf(cpfPessoa);
 
@@ -225,30 +228,31 @@ public class DadosServidor {
                 funcao.getPessoas().add(pessoa);
                 resposta = "Cpf " + cpfPessoa + " associado a Função de " + funcao.getNome();
             }
-           
+
         }
 
         return resposta;
     }
-    
-    public String listGeralFuncaoPessoa(){
+
+    public String listGeralFuncaoPessoa() {
         JSONObject jsonFuncoes = new JSONObject();
         int i = 0;
 
         for (Funcao funcao : funcoes) {
+            String teste = funcao.getPessoas().toString();
             JSONObject jsonFuncao = new JSONObject();
             jsonFuncao.put("nome", funcao.getNome());
             jsonFuncao.put("setor", funcao.getSetor());
             jsonFuncao.put("salario", funcao.getSalario());
-            jsonFuncao.put("listaPessoas", funcao.getPessoas());
+            jsonFuncao.put("listaPessoas", teste);
 
             jsonFuncoes.put(i, jsonFuncao);
             i++;
         }
         return jsonFuncoes.toJSONString();
     }
-    
-       public void popularDadosServidor() {
+
+    public void popularDadosServidor() {
 
         Pessoa p1 = new Pessoa();
         p1.setCpf("111");
@@ -263,16 +267,16 @@ public class DadosServidor {
         pessoas.add(p2);
 
         Funcao f1 = new Funcao();
-        f1.setNome("Secretária");
+        f1.setNome("Secretaria");
         f1.setSetor("RH");
         f1.setSalario(1500);
         funcoes.add(f1);
 
         Funcao f2 = new Funcao();
-        f2.setNome("Secretária");
+        f2.setNome("Auxiliar");
         f2.setSetor("Administrativo");
         f2.setSalario(1500);
-        funcoes.add(f1);
+        funcoes.add(f2);
     }
 
 }
