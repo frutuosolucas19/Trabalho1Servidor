@@ -25,11 +25,11 @@ public class PrincipalServidor {
 
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
 
-       // Scanner entrada = new Scanner(System.in);
-       // System.out.println("Qual a porta?");
-       // int porta = entrada.nextInt();
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Qual a porta?");
+        int porta = entrada.nextInt();
 
-        serverSocket = new ServerSocket(80);
+        serverSocket = new ServerSocket(porta);
         serverSocket.setReuseAddress(true);
         controller = new ControllerServer();
         popularServidor = new DadosServidor();
